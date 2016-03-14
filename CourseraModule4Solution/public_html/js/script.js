@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 // *** start ***
 // On first load, show home view
 showLoading("#main-content");
-$ajaxUtils.sendGetRequest(allCategoriesUrl,buildAndShowHomeHTML.version = "v.1.0.0"//My work  // ***** <---- TODO: STEP 1: Substitute [...] ******
+$ajaxUtils.sendGetRequest(allCategoriesUrl,buildAndShowHomeHTML//My work  // ***** <---- TODO: STEP 1: Substitute [...] ******
 ,true); // Explicitely setting the flag to get JSON from server processed into an object literal
 });
 // *** finish **
@@ -98,8 +98,11 @@ function buildAndShowHomeHTML (categories) {
       // TODO: STEP 2: Here, call chooseRandomCategory, passing it retrieved 'categories'
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
-        var chosenCategoryShortName = chooseRandomCategory(categories).toString;//My work
-      
+        var randomCategory = chooseRandomCategory(categories);
+        var chosenCategoryShortName = randomCategory.short_name;//My work
+        //"'" + chosenCategoryShortName.short_name + "'"
+//        var chosenCategoryShortName = chosenCategoryShortName.short_name;
+//        "'" + chosenCategoryShortName + "'";
         
 //                  
 
@@ -114,15 +117,17 @@ function buildAndShowHomeHTML (categories) {
       // $dc.loadMenuItems('L')
       // Hint: you need to surround the chosen category short name with something before inserting
       // it into the home html snippet.
-      // 
-       var homeHtmlToInsertIntoMainPage = insertProperty(home-snippet.html, "chosenCategoryShortName",chosenCategoryShortName);//My work
-      //insertProperty(html, "chosenCategoryShortName"",chosenCategoryShortName);//my attempt at part 3//My work
+      var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName",  "'" + chosenCategoryShortName + "'");
 
+              
+              
+       
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
       // Use the existing insertHtml function for that purpose. Look through this code for an example
       // of how to do that. 
       // ....
-     insertHtml("#index.html", homeHtmlToInsertIntoMainPage);//My work
+     //insertHtml("#index.html", homeHtmlToInsertIntoMainPage);//My work
+     insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
     },
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
 }
